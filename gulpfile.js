@@ -6,19 +6,33 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var minifycss = require('gulp-minify-css');
 var lessPluginAutoPrefix = require('less-plugin-autoprefix');
+// var imagemin = require('gulp-imagemin');
+// var pngquant = require('imagemin-pngquant');
 
-var autoprefix = new lessPluginAutoPrefix({browsers: [
-    "ie >= 8",
-    "ie_mob >= 10",
-    "ff >= 26",
-    "chrome >= 30",
-    "safari >= 6",
-    "opera >= 23",
-    "ios >= 5",
-    "android >= 2.3",
-    "bb >= 10"
-]});
+var autoprefix = new lessPluginAutoPrefix({
+    browsers: [
+        "ie >= 8",
+        "ie_mob >= 10",
+        "ff >= 26",
+        "chrome >= 30",
+        "safari >= 6",
+        "opera >= 23",
+        "ios >= 5",
+        "android >= 2.3",
+        "bb >= 10"
+    ]
+});
 
+
+// gulp.task('imagemin', function() {
+//     gulp.src('images/*.png').pipe(imagemin({
+//         progressive: true,
+//         svgoPlugins: [{
+//             removeViewBox: false
+//         }],
+//         use: [pngquant()]
+//     })).pipe(gulp.dest('dist/images'));
+// });
 
 gulp.task('lint', function() {
     gulp.src('./js/*.js').pipe(jshint()).pipe(jshint.reporter('default'));
