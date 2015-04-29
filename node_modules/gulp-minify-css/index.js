@@ -9,23 +9,6 @@ var PluginError = require('gulp-util').PluginError;
 var through2 = require('through2');
 var VinylBufferStream = require('vinyl-bufferstream');
 
-function sourceMap(file, map) {
-  map.file = path.relative(file.base, file.path);
-  map.sources = map.sources.map(function(src) {
-    if (src === '__stdin__.css') {
-      return path.relative(file.base, file.path);
-    } else if (path.resolve(src) === path.normalize(src)) {
-      // Path is absolute so imported file had no existing source map.
-      // Trun absolute path in to path relative to file.base.
-      return path.relative(file.base, src);
-    } else {
-      return src;
-    }
-  });
-
-  applySourceMap(file, map);
-}
-
 module.exports = function gulpMinifyCSS(options) {
   options = options || {};
 
@@ -50,9 +33,17 @@ module.exports = function gulpMinifyCSS(options) {
         }
 
         if (css.sourceMap && file.sourceMap) {
-          // clean-css gives bad 'sources' and 'file' properties because we
-          // pass in raw css instead of a file.  So we fix those here.
-          sourceMap(file, JSON.parse(css.sourceMap));
+          var map = JSON.parse(css.sourceMap);
+          map.file = path.relative(file.base, file.path);
+          map.sources = map.sources.map(function(src) {
+            if (/^(https?:)?\/\//.test(src)) {
+              return src;
+            }
+
+            return path.relative(file.base, src === '$stdin' ? file.path : src);
+          });
+
+          applySourceMap(file, map);
         }
 
         done(null, new Buffer(css.styles));
