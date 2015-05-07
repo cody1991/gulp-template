@@ -6,8 +6,8 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var minifycss = require('gulp-minify-css');
 var lessPluginAutoPrefix = require('less-plugin-autoprefix');
-// var imagemin = require('gulp-imagemin');
-// var pngquant = require('imagemin-pngquant');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 
 var autoprefix = new lessPluginAutoPrefix({
     browsers: [
@@ -24,15 +24,15 @@ var autoprefix = new lessPluginAutoPrefix({
 });
 
 
-// gulp.task('imagemin', function() {
-//     gulp.src('images/*.png').pipe(imagemin({
-//         progressive: true,
-//         svgoPlugins: [{
-//             removeViewBox: false
-//         }],
-//         use: [pngquant()]
-//     })).pipe(gulp.dest('dist/images'));
-// });
+gulp.task('imagemin', function() {
+    gulp.src('images/*.png').pipe(imagemin({
+        progressive: true,
+        svgoPlugins: [{
+            removeViewBox: false
+        }],
+        use: [pngquant()]
+    })).pipe(gulp.dest('./dist'));
+});
 
 gulp.task('lint', function() {
     gulp.src('./js/*.js').pipe(jshint()).pipe(jshint.reporter('default'));
@@ -58,7 +58,7 @@ gulp.task('min-styles', ['less'], function() {
 });
 
 gulp.task('default', function() {
-    gulp.run('lint', 'scripts', 'less', 'min-styles');
+    gulp.run('lint', 'scripts', 'less', 'min-styles','imagemin');
     gulp.watch('./js/*.js', function() {
         gulp.run('lint', 'scripts');
     });
