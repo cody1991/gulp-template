@@ -6,8 +6,6 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var minifycss = require('gulp-minify-css');
 var lessPluginAutoPrefix = require('less-plugin-autoprefix');
-var imagemin = require('gulp-imagemin');
-var pngquant = require('imagemin-pngquant');
 
 var autoprefix = new lessPluginAutoPrefix({
     browsers: [
@@ -23,23 +21,12 @@ var autoprefix = new lessPluginAutoPrefix({
     ]
 });
 
-
-gulp.task('imagemin', function() {
-    gulp.src('images/*.png').pipe(imagemin({
-        progressive: true,
-        svgoPlugins: [{
-            removeViewBox: false
-        }],
-        use: [pngquant()]
-    })).pipe(gulp.dest('./dist'));
-});
-
 gulp.task('lint', function() {
     gulp.src('./js/*.js').pipe(jshint()).pipe(jshint.reporter('default'));
 });
 
 gulp.task('scripts', function() {
-    gulp.src('./js/*.js').pipe(concat('all.js')).pipe(gulp.dest('./dist')).pipe(rename('all.min.js')).pipe(uglify()).pipe(gulp.dest('./dist'));
+    gulp.src('./js/*.js').pipe(concat('all.js')).pipe(gulp.dest('./dist')).pipe(rename('all.min.js')).pipe(uglify()).pipe(gulp.dest('./online/dist/')).pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('less', function() {
@@ -47,22 +34,26 @@ gulp.task('less', function() {
         compress: false,
         plugins: [autoprefix]
     })).pipe(gulp.dest('./css'));
-    gulp.src('./less/fullPage.less').pipe(less({
-        compress: false,
-        plugins: [autoprefix]
-    })).pipe(gulp.dest('./lib')).pipe(rename('fullPage.min.css')).pipe(minifycss()).pipe(gulp.dest('./lib'));
 });
 
 gulp.task('min-styles', ['less'], function() {
-    gulp.src('./css/*.css').pipe(concat('all.css')).pipe(gulp.dest('./dist')).pipe(rename('all.min.css')).pipe(minifycss()).pipe(gulp.dest('./dist'));
+    gulp.src('./css/*.css').pipe(concat('all.css')).pipe(gulp.dest('./dist')).pipe(rename('all.min.css')).pipe(minifycss()).pipe(gulp.dest('./online/dist/')).pipe(gulp.dest('./dist/'));
 });
 
+gulp.task('online',function(){
+    gulp.src('./images/*').pipe(gulp.dest('./online/images/'));
+    gulp.src('./index.html').pipe(gulp.dest('./online/'));
+})
+
 gulp.task('default', function() {
-    gulp.run('lint', 'scripts', 'less', 'min-styles','imagemin');
+    gulp.run('lint', 'scripts', 'less', 'min-styles','online');
     gulp.watch('./js/*.js', function() {
         gulp.run('lint', 'scripts');
     });
     gulp.watch('./less/*.less', function() {
         gulp.run('less', 'min-styles');
     });
+    gulp.watch(['./index.html','./images/*'],function(){
+        gulp.run('online');
+    })
 })

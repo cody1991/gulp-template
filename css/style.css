@@ -1,7 +1,19 @@
-body {
-  font-size: 100%;
-  color: #000;
-  -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-          transform: scale(1);
+.container {
+  font-family: 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+  margin: 0 auto;
+  height: 100%;
+  max-width: 640px;
+}
+.demo {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  background: url(../images/demo.jpg) no-repeat center center;
+  -webkit-background-size: 100% 100%;
+          background-size: 100% 100%;
 }
