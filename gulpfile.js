@@ -22,11 +22,11 @@ var autoprefix = new lessPluginAutoPrefix({
 });
 
 gulp.task('lint', function() {
-    gulp.src('./js/*.js').pipe(jshint()).pipe(jshint.reporter('default'));
+    gulp.src('./js/common.js').pipe(jshint()).pipe(jshint.reporter('default'));
 });
 
 gulp.task('scripts', function() {
-    gulp.src('./js/*.js').pipe(concat('all.js')).pipe(gulp.dest('./dist')).pipe(rename('all.min.js')).pipe(uglify()).pipe(gulp.dest('./online/dist/')).pipe(gulp.dest('./dist/'));
+    gulp.src(['./js/common.js']).pipe(concat('all.js')).pipe(gulp.dest('./dist')).pipe(rename('all.min.js')).pipe(uglify()).pipe(gulp.dest('./online/dist/')).pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('less', function() {
@@ -43,6 +43,7 @@ gulp.task('min-styles', ['less'], function() {
 gulp.task('online',function(){
     gulp.src('./images/*').pipe(gulp.dest('./online/images/'));
     gulp.src('./index.html').pipe(gulp.dest('./online/'));
+    gulp.src('./lib/*').pipe(gulp.dest('./online/lib/'));
 })
 
 gulp.task('default', function() {
