@@ -26,7 +26,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('scripts', function() {
-    gulp.src(['./js/jquery-2.1.4.min.js','./js/common.js']).pipe(concat('all.js')).pipe(gulp.dest('./dist')).pipe(rename('all.min.js')).pipe(uglify()).pipe(gulp.dest('./online/dist/')).pipe(gulp.dest('./dist/'));
+    gulp.src(['./js/jquery-2.1.4.min.js','./js/common.js']).pipe(concat('all.js')).pipe(gulp.dest('./dist')).pipe(rename('all.min.js')).pipe(uglify()).pipe(gulp.dest('./online/')).pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('less', function() {
@@ -37,7 +37,7 @@ gulp.task('less', function() {
 });
 
 gulp.task('min-styles', ['less'], function() {
-    gulp.src('./css/*.css').pipe(concat('all.css')).pipe(gulp.dest('./dist')).pipe(rename('all.min.css')).pipe(minifycss()).pipe(gulp.dest('./online/dist/')).pipe(gulp.dest('./dist/'));
+    gulp.src('./css/*.css').pipe(concat('all.css')).pipe(gulp.dest('./dist')).pipe(rename('all.min.css')).pipe(minifycss()).pipe(gulp.dest('./online/')).pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('online',function(){
