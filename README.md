@@ -1,8 +1,16 @@
 [gulp案例](https://github.com/cody1991/gulp-demo)
 
+***
+
+2015/06/18
+---
+更新了不少东西，优化gulpfile.js的配置，另外如今是动态生成带有时间戳的all.js和all.css（或者用于发布的online/dist/all.min.js和online/dist/all.min.css）文件，更加懒人化~
+
 2015/06/02
 ---
 修改gulpfile.js，增加online文件夹用于线上发布的版本。
+
+***
 
 最近兴起的[Gulp:新一代前端构建利器](http://gulpjs.com/)，[gulp中文网](http://www.gulpjs.com.cn/)，可以很好地用自动化构造工具增强我们的前端开发流程。自己写了一套[gulp.js模板](https://github.com/cody1991/gulp-study)，就以这个例子来简单说说。
 
