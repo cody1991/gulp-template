@@ -8,16 +8,13 @@
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta content="telephone=no" name="format-detection" />
-</head>
-
-<body>
-    <div class="container">
-        <div class="demo"></div>
-    </div>
     <script type="text/javascript">
     (function(d) {
-        var isProduction = true;
-        var isProductionString = isProduction ? '.min' : '';
+        var GulpTemplate = {
+            'isProduction': false
+        };
+        window.GulpTemplate = GulpTemplate;
+        GulpTemplate.isProductionString = GulpTemplate.isProduction ? '.min' : '';
         var now = new Date();
         var nowString = {
             hours: now.getHours(),
@@ -31,18 +28,34 @@
             }
             addString += nowString[item];
         }
-        var head = d.getElementsByTagName('head')[0];
-        var linkTag = d.createElement('link');
-        linkTag.setAttribute('rel', 'stylesheet');
-        linkTag.setAttribute('type', 'text/all');
-        linkTag.href = 'dist/all' + isProductionString + '.css' + '?' + addString;
-        head.appendChild(linkTag);
+        GulpTemplate.addString = addString;
+        GulpTemplate.addAllCss = function() {
+            var head = d.getElementsByTagName('head')[0];
+            var linkTag = d.createElement('link');
+            linkTag.setAttribute('rel', 'stylesheet');
+            linkTag.setAttribute('type', 'text/all');
+            linkTag.href = 'dist/all' + GulpTemplate.isProductionString + '.css' + '?' + GulpTemplate.addString;
+            head.appendChild(linkTag);
+        }
+        GulpTemplate.addAllJavascript = function() {
+            var body = d.getElementsByTagName('body')[0];
+            var scriptTag = d.createElement('script');
+            scriptTag.setAttribute('type', 'text/javascript');
+            scriptTag.src = 'dist/all' + GulpTemplate.isProductionString + '.js' + '?' + GulpTemplate.addString;
+            body.appendChild(scriptTag);
+        }
+        GulpTemplate.addAllCss();
+    })(document);
+    </script>
+</head>
 
-        var body = d.getElementsByTagName('body')[0];
-        var scriptTag = d.createElement('script');
-        scriptTag.setAttribute('type', 'text/javascript');
-        scriptTag.src = 'dist/all' + isProductionString + '.js' + '?' + addString;
-        body.appendChild(scriptTag);
+<body>
+    <div class="container">
+        <div class="demo"></div>
+    </div>
+    <script type="text/javascript">
+    (function(d) {
+        GulpTemplate.addAllJavascript();
     })(document);
     </script>
 </body>
