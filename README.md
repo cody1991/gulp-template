@@ -28,6 +28,7 @@ gulp.js的核心部分应该是在gulpfile.js文件,我自己的模板的这个�
 	var rename = require('gulp-rename');
 	var minifycss = require('gulp-minify-css');
 	var lessPluginAutoPrefix = require('less-plugin-autoprefix');
+	var connect = require('gulp-connect');
 
 gulp是基于node.js的,开头部分我们引入了N个模块.主要是gulp本身,检测javascript语法是否有错误的jshint模块,压缩javascript文件的uglify模块,CSS预处理语言LESS模块,CSS浏览器兼容前缀自动补充的autoprefix模块,压缩CSS文件的minify-css模块,文件的合并模块concat以及文件的重命名模块rename,最后还有图片的压缩模块imagemin.可以说基本把前端开发的 js / css / image 压缩合并工作都包括进去了.
 
