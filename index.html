@@ -8,42 +8,11 @@
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta content="telephone=no" name="format-detection" />
+    <script type="text/javascript" src="lib/config.js"></script>
     <script type="text/javascript">
     (function(d) {
-        var GulpTemplate = {
-            'isProduction': false
-        };
-        window.GulpTemplate = GulpTemplate;
-        GulpTemplate.isProductionString = GulpTemplate.isProduction ? '.min' : '';
-        var now = new Date();
-        var nowString = {
-            hours: now.getHours(),
-            min: now.getMinutes(),
-            sec: now.getSeconds()
-        }
-        var addString = '';
-        for (item in nowString) {
-            if (nowString[item] < 10) {
-                nowString[item] = '0' + nowString[item];
-            }
-            addString += nowString[item];
-        }
-        GulpTemplate.addString = addString;
-        GulpTemplate.addAllCss = function() {
-            var head = d.getElementsByTagName('head')[0];
-            var linkTag = d.createElement('link');
-            linkTag.setAttribute('rel', 'stylesheet');
-            linkTag.setAttribute('type', 'text/all');
-            linkTag.href = 'dist/all' + GulpTemplate.isProductionString + '.css' + '?' + GulpTemplate.addString;
-            head.appendChild(linkTag);
-        }
-        GulpTemplate.addAllJavascript = function() {
-            var body = d.getElementsByTagName('body')[0];
-            var scriptTag = d.createElement('script');
-            scriptTag.setAttribute('type', 'text/javascript');
-            scriptTag.src = 'dist/all' + GulpTemplate.isProductionString + '.js' + '?' + GulpTemplate.addString;
-            body.appendChild(scriptTag);
-        }
+        // 最后这个地方要换成true表示发布版本，这样可以带动 ./online 引入压缩后的all.min.js和all.min.css文件，因为发布版本是不会出现压缩前的文件的
+        GulpTemplate.isProduction = true;
         GulpTemplate.addAllCss();
     })(document);
     </script>
