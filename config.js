@@ -17,21 +17,21 @@
         addString += nowString[item];
     }
     GulpTemplate.addString = addString;
-    GulpTemplate.addAllCss = function() {
+    GulpTemplate.addAllCss = function(src) {
         GulpTemplate.isProductionString = GulpTemplate.isProduction ? '.min' : '';
         var head = d.getElementsByTagName('head')[0];
         var linkTag = d.createElement('link');
         linkTag.setAttribute('rel', 'stylesheet');
         linkTag.setAttribute('type', 'text/all');
-        linkTag.href = 'dist/all' + GulpTemplate.isProductionString + '.css' + '?' + GulpTemplate.addString;
+        linkTag.href = src + GulpTemplate.isProductionString + '.css' + '?' + GulpTemplate.addString;
         head.appendChild(linkTag);
     }
-    GulpTemplate.addAllJavascript = function() {
+    GulpTemplate.addAllJavascript = function(src) {
         GulpTemplate.isProductionString = GulpTemplate.isProduction ? '.min' : '';
         var body = d.getElementsByTagName('body')[0];
         var scriptTag = d.createElement('script');
         scriptTag.setAttribute('type', 'text/javascript');
-        scriptTag.src = 'dist/all' + GulpTemplate.isProductionString + '.js' + '?' + GulpTemplate.addString;
+        scriptTag.src = src + GulpTemplate.isProductionString + '.js' + '?' + GulpTemplate.addString;
         body.appendChild(scriptTag);
     }
 })(document);

@@ -61,8 +61,8 @@ textarea{resize:vertical}
   max-width: 640px;
 }
 .demo {
-  width: 200px;
-  height: 200px;
+  width: 210px;
+  height: 210px;
   margin: 0 auto;
   background: url(../images/demo.jpg) no-repeat center center;
   -webkit-background-size: 100% 100%;
