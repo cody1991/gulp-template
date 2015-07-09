@@ -1,6 +1,6 @@
 {
     "name": "gulp-template",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "a gulp template package",
     "author": "cody1991",
     "keywords": ["gulp", "template"],

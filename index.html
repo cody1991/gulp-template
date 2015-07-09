@@ -11,7 +11,9 @@
     <script type="text/javascript" src="config.min.js"></script>
     <script type="text/javascript">
     (function(d) {
-        // 最后这个地方要换成true表示发布版本，这样可以带动 ./online 引入压缩后的all.min.js和all.min.css文件，因为发布版本是不会出现压缩前的文件的
+        // GulpTemplate是用来生成带有时间戳的css或js文件所用
+        // GulpTemplate.addAllCss方法可以用于载入all.css或all.min.css;
+        // GulpTemplate.isProduction用于判定是否生成线上文件
         GulpTemplate.isProduction = true;
         GulpTemplate.addAllCss('./publish/css/all');
     })(document);
@@ -26,7 +28,7 @@
     (function(d) {
         var javascript_list = ['./publish/js/all-0', './publish/js/all-1'];
         for (var i = 0; i < javascript_list.length; i++) {
-            GulpTemplate.addAllJavascript(javascript_list[i]);
+            GulpTemplate.addJavascript(javascript_list[i]);
         }
     })(document);
     </script>

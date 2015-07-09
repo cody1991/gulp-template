@@ -26,7 +26,7 @@
         linkTag.href = src + GulpTemplate.isProductionString + '.css' + '?' + GulpTemplate.addString;
         head.appendChild(linkTag);
     }
-    GulpTemplate.addAllJavascript = function(src) {
+    GulpTemplate.addJavascript = function(src) {
         GulpTemplate.isProductionString = GulpTemplate.isProduction ? '.min' : '';
         var body = d.getElementsByTagName('body')[0];
         var scriptTag = d.createElement('script');
