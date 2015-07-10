@@ -38,6 +38,16 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
         GulpTemplate.addAllCss('./publish/css/all');
     })(document);
 
+	//javascript_list是载入的js文件列表
+	//GulpTemplate.addJavascript载入js文件
+	//和上面的css文件一样不需要添加后缀
+	(function(d) {
+        var javascript_list = ['./publish/js/all-0', './publish/js/all-1'];
+        for (var i = 0; i < javascript_list.length; i++) {
+            GulpTemplate.addJavascript(javascript_list[i]);
+        }
+    })(document);
+
 2	./package.json
 ---
 
@@ -127,3 +137,38 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 ---
 
 这个是用于线上发布的文件夹，里面有项目的所有html文件，以及在./production/publish下面有从./publish拷贝出来的压缩后的js文件，压缩后的css文件以及图片文件。
+
+8	./gulpfile.js
+---
+
+可以 [点击这里](https://raw.githubusercontent.com/cody1991/gulp-template/gh-pages/gulpfile.js) 查看对应的gulp配置文件。平时我们使用命令行工具来到项目文件夹，执行
+
+	gulp
+
+命令就可以按照配置文件里面设定的默认事件来运行起来。而执行
+
+	gulp online
+
+命令的话会生成一个 ./production 文件夹，生成用于发布的版本。
+
+而具体项目的配置还要在此文件下设置。（这也是目前一个不太好的地方，待修改）。
+
+使用
+===
+
+1. 下载本项目
+---
+
+	git clone https://github.com/cody1991/gulp-template.git
+
+2. 下载依赖插件，执行gulp命令
+---
+	
+	cd 对应目录
+	npm install
+	gulp
+
+3. 生成线上版本
+---
+	
+	gulp online
