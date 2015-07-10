@@ -31,17 +31,8 @@ var custom_less = ['./src/less/style.less'],
     lib_css = ['./src/lib/normalize.css'];
 
 gulp.task('minCss', ['less'], function() {
-    var css_task_list = ['./dist/css/*'];
-
     gulp.src(lib_css)
         .pipe(gulp.dest('./dist/css'));
-
-    gulp.src(css_task_list)
-        .pipe(concat('all.css'))
-        .pipe(gulp.dest('./publish/css/'))
-        .pipe(rename('all.min.css'))
-        .pipe(minifycss())
-        .pipe(gulp.dest('./publish/css/'));
 });
 
 gulp.task('less', function() {
@@ -51,6 +42,16 @@ gulp.task('less', function() {
             plugins: [autoprefix]
         }))
         .pipe(gulp.dest('./dist/css/'));
+});
+
+gulp.task('publishCss', ['minCss'], function() {
+    var css_task_list = ['./dist/css/*'];
+    gulp.src(css_task_list)
+        .pipe(concat('all.css'))
+        .pipe(gulp.dest('./publish/css/'))
+        .pipe(rename('all.min.css'))
+        .pipe(minifycss())
+        .pipe(gulp.dest('./publish/css/'));
 });
 
 /* 
@@ -75,7 +76,13 @@ gulp.task('concatScript', ['jshint'], function() {
         .pipe(gulp.dest('./dist/js'));
     gulp.src(lib_javascript)
         .pipe(gulp.dest('./dist/js'));
+    gulp.src('./config.js')
+        .pipe(rename('config.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./'));
+});
 
+gulp.task('publishScript', ['concatScript'], function() {
     for (var i = 0; i < js_task_list.length; i++) {
         var cur_task = js_task_list[i],
             cur_file = 'all-' + i + '.js',
@@ -88,11 +95,6 @@ gulp.task('concatScript', ['jshint'], function() {
             .pipe(uglify())
             .pipe(gulp.dest('./publish/js/'));
     }
-
-    gulp.src('./config.js')
-        .pipe(rename('config.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('./'));
 });
 
 gulp.task('jshint', function() {
@@ -161,16 +163,16 @@ gulp.task('connect', function() {
 gulp.task('default', function() {
 
     // 一进来就运行connect jshint concatScript less minCss命令
-    gulp.run('connect', 'jshint', 'concatScript', 'less', 'minCss');
+    gulp.run('connect', 'jshint', 'concatScript', 'publishScript', 'less', 'minCss', 'publishCss');
 
     // 监控js文件，有变化的时候运行jshint concatScript reload命令
     gulp.watch('./src/js/*', function() {
-        gulp.run('jshint', 'concatScript', 'reload');
+        gulp.run('jshint', 'concatScript', 'publishScript', 'reload');
     });
 
     // 监控less文件，有变化的时候运行less minCss reload命令
     gulp.watch('./src/less/*', function() {
-        gulp.run('less', 'minCss', 'reload');
+        gulp.run('less', 'minCss', 'publishCss', 'reload');
     });
 
     // 监控index和images文件，在变化的时候运行reload

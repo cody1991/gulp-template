@@ -172,3 +172,12 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 ---
 	
 	gulp online
+
+不足
+===
+
+经常第一次执行 
+
+	gulp
+
+命令，./publish/css和./publish/js并没有生成，而且有时候保存文件重新合并压缩会出现问题。在后面会进一步的修改
