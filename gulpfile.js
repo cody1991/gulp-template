@@ -163,7 +163,7 @@ gulp.task('connect', function() {
 gulp.task('default', function() {
 
     // 一进来就运行connect jshint concatScript less minCss命令
-    gulp.run('connect', 'jshint', 'concatScript', 'publishScript', 'less', 'minCss', 'publishCss');
+    // gulp.run('connect', 'jshint', 'concatScript', 'publishScript', 'less', 'minCss', 'publishCss');
 
     // 监控js文件，有变化的时候运行jshint concatScript reload命令
     gulp.watch('./src/js/*', function() {
