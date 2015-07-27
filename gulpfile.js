@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     minifycss = require('gulp-minify-css'),
     lessPluginAutoPrefix = require('less-plugin-autoprefix'),
     connect = require('gulp-connect'),
+    clean = require('gulp-clean'),
     autoprefix = new lessPluginAutoPrefix({
         browsers: [
             "ie >= 8",
@@ -138,6 +139,19 @@ gulp.task('online', function() {
 
     gulp.src(['./config.min.js'])
         .pipe(gulp.dest('./production/'));
+});
+
+/*
+ *
+ * 清理上线文件
+ * 
+ */
+
+gulp.task('clean', function() {
+    gulp.src(['./production'], {
+            read: false
+        })
+        .pipe(clean());
 });
 
 /*
