@@ -15,7 +15,21 @@ gulp.js的核心部分在gulpfile.js配置文件,可以在 [这里](https://gith
 	    rename = require('gulp-rename'),
 	    minifycss = require('gulp-minify-css'),
 	    lessPluginAutoPrefix = require('less-plugin-autoprefix'),
-	    connect = require('gulp-connect')
+	    connect = require('gulp-connect'),
+	    clean = require('gulp-clean'),
+	    autoprefix = new lessPluginAutoPrefix({
+	        browsers: [
+	            "ie >= 8",
+	            "ie_mob >= 10",
+	            "ff >= 26",
+	            "chrome >= 30",
+	            "safari >= 6",
+	            "opera >= 23",
+	            "ios >= 5",
+	            "android >= 2.3",
+	            "bb >= 10"
+	        ]
+	    });
 
 gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。主要是 [gulp](https://github.com/gulpjs/gulp) 本身，检测js代码是否规范的 [jshint](https://github.com/spalger/gulp-jshint) 模块,压缩js文件的 [uglify](https://github.com/terinjokes/gulp-uglify) 模块,CSS预处理语言的 [Less](https://github.com/plus3network/gulp-less) 模块,CSS浏览器兼容前缀自动补充的 [autoprefix](https://github.com/less/less-plugin-autoprefix) 模块,压缩CSS文件的 [minify-css](https://github.com/murphydanger/gulp-minify-css) 模块,文件的合并 [concat](https://github.com/wearefractal/gulp-concat) 模块，以及文件的重命名 [rename](https://github.com/hparra/gulp-rename) 模块。
 
@@ -58,12 +72,16 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 	    "version": "0.0.2",
 	    "description": "a gulp template package",
 	    "author": "cody1991",
-	    "keywords": ["gulp", "template"],
-	    "license":"MIT",
-	    "repository":"https://github.com/cody1991/gulp-template",
+	    "keywords": [
+	        "gulp",
+	        "template"
+	    ],
+	    "license": "MIT",
+	    "repository": "https://github.com/cody1991/gulp-template",
 	    "dependencies": {},
 	    "devDependencies": {
 	        "gulp": "^3.8.11",
+	        "gulp-clean": "^0.3.1",
 	        "gulp-concat": "^2.5.2",
 	        "gulp-connect": "^2.2.0",
 	        "gulp-jshint": "^1.10.0",
@@ -75,6 +93,7 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 	        "less-plugin-autoprefix": "^1.4.1"
 	    }
 	}
+
 3	config.js / config.min.js
 ---
 	
@@ -173,11 +192,9 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 	
 	gulp online
 
-不足
-===
+4. 删除线上版本
+---
 
-经常第一次执行 
+	gulp clean
 
-	gulp
-
-命令，./publish/css和./publish/js并没有生成，而且有时候保存文件重新合并压缩会出现问题。在后面会进一步的修改
+因为考虑到在线版本会生成一些以前存在但是已经删除了的文件，直接把整个 ./production 文件删除再重新生成一个干净的在线版本还是不错的。
