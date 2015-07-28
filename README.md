@@ -180,6 +180,11 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 
 	git clone https://github.com/cody1991/gulp-template.git
 
+or
+	
+	npm install cody-gulp-template
+
+
 2. 下载依赖插件，执行gulp命令
 ---
 	
