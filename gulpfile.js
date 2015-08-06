@@ -110,13 +110,12 @@ gulp.task('jshint', function() {
 var images_list = [
         ['/'],
         ['mianma/']
-    ],
-    js_list;
+    ];
 
 gulp.task('online', function() {
     for (var i = 0; i < images_list.length; i++) {
         var fromUrl = './publish/images/',
-            toUrl = './production/publish/images/',
+            toUrl = './online/publish/images/',
             cur_images_dir = images_list[i],
             cur_from = fromUrl + cur_images_dir + '*',
             cur_to = toUrl + cur_images_dir;
@@ -128,17 +127,17 @@ gulp.task('online', function() {
     for (var i = 0; i < js_task_list.length; i++) {
         var cur_js = './publish/js/all-' + i + '.min.js';
         gulp.src(cur_js)
-            .pipe(gulp.dest('./production/publish/js'));
+            .pipe(gulp.dest('./online/publish/js'));
     }
 
     gulp.src(['./publish/css/all.min.css'])
-        .pipe(gulp.dest('./production/publish/css'));
+        .pipe(gulp.dest('./online/publish/css'));
 
     gulp.src(['./*.html'])
-        .pipe(gulp.dest('./production/'));
+        .pipe(gulp.dest('./online/'));
 
     gulp.src(['./config.min.js'])
-        .pipe(gulp.dest('./production/'));
+        .pipe(gulp.dest('./online/'));
 });
 
 /*
@@ -148,7 +147,7 @@ gulp.task('online', function() {
  */
 
 gulp.task('clean', function() {
-    gulp.src(['./production'], {
+    gulp.src(['./online'], {
             read: false
         })
         .pipe(clean());
@@ -176,8 +175,8 @@ gulp.task('connect', function() {
  */
 gulp.task('default', function() {
 
-    // 一进来就运行connect jshint concatScript less minCss命令
-    // gulp.run('connect', 'jshint', 'concatScript', 'publishScript', 'less', 'minCss', 'publishCss');
+    // 运行connect，可在localhost:8080 访问
+    gulp.run('connect');
 
     // 监控js文件，有变化的时候运行jshint concatScript reload命令
     gulp.watch('./src/js/*', function() {

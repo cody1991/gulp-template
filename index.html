@@ -10,13 +10,13 @@
     <meta content="telephone=no" name="format-detection" />
     <script type="text/javascript" src="config.min.js"></script>
     <script type="text/javascript">
-    (function(d) {
+    (function() {
         // GulpTemplate是用来生成带有时间戳的css或js文件所用
         // GulpTemplate.addAllCss方法可以用于载入all.css或all.min.css;
         // GulpTemplate.isProduction用于判定是否生成线上文件
         GulpTemplate.isProduction = true;
         GulpTemplate.addAllCss('./publish/css/all');
-    })(document);
+    })();
     </script>
 </head>
 
@@ -28,12 +28,12 @@
     //javascript_list是载入的js文件列表
     //GulpTemplate.addJavascript载入js文件
     //和上面的css文件一样不需要添加后缀
-    (function(d) {
+    (function() {
         var javascript_list = ['./publish/js/all-0', './publish/js/all-1'];
         for (var i = 0; i < javascript_list.length; i++) {
             GulpTemplate.addJavascript(javascript_list[i]);
         }
-    })(document);
+    })();
     </script>
 </body>
 
