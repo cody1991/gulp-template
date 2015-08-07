@@ -48,16 +48,16 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 	// GulpTemplate.addAllCss方法可以用于载入all.css或all.min.css;
 	// GulpTemplate.isProduction用于判定是否生成线上文件
 	(function(d) {
-        // 最后这个地方要换成true表示发布版本，这样可以带动 ./online 引入压缩后的all.min.js和all.min.css文件，因为发布版本是不会出现压缩前的文件的
+        // 最后这个地方要换成true表示发布版本，这样可以带动 ./publish 引入压缩后的all.min.js和all.min.css文件，因为发布版本是不会出现压缩前的文件的
         GulpTemplate.isProduction = true;
-        GulpTemplate.addAllCss('./online/css/all');
+        GulpTemplate.addAllCss('./publish/css/all');
     })(document);
 
 	//javascript_list是载入的js文件列表
 	//GulpTemplate.addJavascript载入js文件
 	//和上面的css文件一样不需要添加后缀
 	(function(d) {
-        var javascript_list = ['./online/js/all-0', './online/js/all-1'];
+        var javascript_list = ['./publish/js/all-0', './publish/js/all-1'];
         for (var i = 0; i < javascript_list.length; i++) {
             GulpTemplate.addJavascript(javascript_list[i]);
         }
@@ -148,15 +148,15 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 
 通过gulp由./src生成的js和css文件会被分别放在./dist/css和./dist/js文件夹中
 
-6	./online
+6	./publish
 ---
 
-这个文件夹存放的是项目的图片文件./online/images，以及由./dist/css目录下所有的css文件合并生成的all.min.css和all.css文件，和由./dist/js目录下生成的不定数量的all-num.js和all-num.min.js文件，num指的是第几个js文件，从0开始。
+这个文件夹存放的是项目的图片文件./publish/images，以及由./dist/css目录下所有的css文件合并生成的all.min.css和all.css文件，和由./dist/js目录下生成的不定数量的all-num.js和all-num.min.js文件，num指的是第几个js文件，从0开始。
 
-7	./production
+7	./online
 ---
 
-这个是用于线上发布的文件夹，里面有项目的所有html文件，以及在./production/online下面有从./online拷贝出来的压缩后的js文件，压缩后的css文件以及图片文件。
+这个是用于线上发布的文件夹，里面有项目的所有html文件，以及在./online/publish下面有从./publish拷贝出来的压缩后的js文件，压缩后的css文件以及图片文件。
 
 8	./gulpfile.js
 ---
@@ -169,7 +169,7 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 
 	gulp online
 
-命令的话会生成一个 ./production 文件夹，生成用于发布的版本。
+命令的话会生成一个 ./online 文件夹，生成用于发布的版本。
 
 而具体项目的配置还要在此文件下设置。（这也是目前一个不太好的地方，待修改）。
 
@@ -203,4 +203,4 @@ or
 
 	gulp clean
 
-因为考虑到在线版本会生成一些以前存在但是已经删除了的文件，直接把整个 ./production 文件删除再重新生成一个干净的在线版本还是不错的。
+因为考虑到在线版本会生成一些以前存在但是已经删除了的文件，直接把整个 ./online 文件删除再重新生成一个干净的在线版本还是不错的。
