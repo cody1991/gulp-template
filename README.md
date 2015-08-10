@@ -18,6 +18,7 @@ gulp.js的核心部分在gulpfile.js配置文件,可以在 [这里](https://gith
 	    lessPluginAutoPrefix = require('less-plugin-autoprefix'),
 	    connect = require('gulp-connect'),
 	    clean = require('gulp-clean'),
+	    runSequence = require('run-sequence').use(gulp),
 	    autoprefix = new lessPluginAutoPrefix({
 	        browsers: [
 	            "ie >= 8",
@@ -31,8 +32,7 @@ gulp.js的核心部分在gulpfile.js配置文件,可以在 [这里](https://gith
 	            "bb >= 10"
 	        ]
 	    });
-
-gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。主要是 [gulp](https://github.com/gulpjs/gulp) 本身，检测js代码是否规范的 [jshint](https://github.com/spalger/gulp-jshint) 模块,压缩js文件的 [uglify](https://github.com/terinjokes/gulp-uglify) 模块,CSS预处理语言的 [Less](https://github.com/plus3network/gulp-less) 模块,CSS浏览器兼容前缀自动补充的 [autoprefix](https://github.com/less/less-plugin-autoprefix) 模块,压缩CSS文件的 [minify-css](https://github.com/murphydanger/gulp-minify-css) 模块,文件的合并 [concat](https://github.com/wearefractal/gulp-concat) 模块，以及文件的重命名 [rename](https://github.com/hparra/gulp-rename) 模块。
+gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。主要是 [gulp](https://github.com/gulpjs/gulp) 本身，检测js代码是否规范的 [jshint](https://github.com/spalger/gulp-jshint) 模块,压缩js文件的 [uglify](https://github.com/terinjokes/gulp-uglify) 模块,CSS预处理语言的 [Less](https://github.com/plus3network/gulp-less) 模块,CSS浏览器兼容前缀自动补充的 [autoprefix](https://github.com/less/less-plugin-autoprefix) 模块,压缩CSS文件的 [minify-css](https://github.com/murphydanger/gulp-minify-css) 模块,文件的合并 [concat](https://github.com/wearefractal/gulp-concat) 模块，以及文件的重命名 [rename](https://github.com/hparra/gulp-rename) 模块，用来删除文件和文件夹的 [gulp-clean](https://www.npmjs.com/package/gulp-clean) 模块，构建本地服务器并带有刷新功能的 [gulp-connect](https://github.com/AveVlad/gulp-connect)模块，让gulp任务能够按照顺序执行的[run-sequence](https://www.npmjs.com/package/run-sequence) 模块。
 
 另外在这里提一下 [HTML5 Boilerplate](http://www.bootcss.com/p/html5boilerplate/) ，在这个网站下可以看到这样的介绍：“HTML5 Boilerplate帮你构建快速，健壮，并且适应力强 的web app或网站。这个小小的源码包集合了100位开发者的经验，你可以将这些经验运用在你的项目中。”更多的细节可以自己看看。我给出的本gulp模板基本结构也是基于HTML5 Boilerplate的。可以在我的 [mylib](https://github.com/cody1991/mylib/tree/gh-pages/framwork/singlepage) 项目中下载。
 
@@ -69,31 +69,44 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 这个包的信息，用于npm下载依赖的模块
 
 	{
-	    "name": "gulp-template",
-	    "version": "0.0.2",
-	    "description": "a gulp template package",
-	    "author": "cody1991",
-	    "keywords": [
-	        "gulp",
-	        "template"
-	    ],
-	    "license": "MIT",
-	    "repository": "https://github.com/cody1991/gulp-template",
-	    "dependencies": {},
-	    "devDependencies": {
-	        "gulp": "^3.8.11",
-	        "gulp-clean": "^0.3.1",
-	        "gulp-concat": "^2.5.2",
-	        "gulp-connect": "^2.2.0",
-	        "gulp-jshint": "^1.10.0",
-	        "gulp-less": "^3.0.3",
-	        "gulp-livereload": "^3.8.0",
-	        "gulp-minify-css": "^1.1.0",
-	        "gulp-rename": "^1.2.2",
-	        "gulp-uglify": "^1.2.0",
-	        "less-plugin-autoprefix": "^1.4.1"
-	    }
+	  "name": "cody-gulp-template",
+	  "version": "0.0.3",
+	  "description": "a gulp template package",
+	  "author": "sysutangzxcody",
+	  "keywords": [
+	    "gulp",
+	    "template"
+	  ],
+	  "license": "MIT",
+	  "repository": {
+	    "type": "git",
+	    "url": "https://github.com/cody1991/gulp-template"
+	  },
+	  "dependencies": {},
+	  "devDependencies": {
+	    "gulp": "^3.8.11",
+	    "gulp-clean": "^0.3.1",
+	    "gulp-concat": "^2.5.2",
+	    "gulp-connect": "^2.2.0",
+	    "gulp-jshint": "^1.10.0",
+	    "gulp-less": "^3.0.3",
+	    "gulp-livereload": "^3.8.0",
+	    "gulp-minify-css": "^1.1.0",
+	    "gulp-rename": "^1.2.2",
+	    "gulp-uglify": "^1.2.0",
+	    "less-plugin-autoprefix": "^1.4.1",
+	    "run-sequence": "^1.1.2"
+	  },
+	  "bugs": {
+	    "url": "https://github.com/cody1991/gulp-template/issues"
+	  },
+	  "homepage": "https://github.com/cody1991/gulp-template",
+	  "main": "index.html",
+	  "scripts": {
+	    "test": "echo \"Error: no test specified\" && exit 1"
+	  }
 	}
+
 
 3	config.js / config.min.js
 ---
@@ -176,7 +189,7 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 使用
 ===
 
-1. 下载本项目
+1	下载本项目
 ---
 
 	git clone https://github.com/cody1991/gulp-template.git
@@ -186,19 +199,19 @@ or
 	npm install cody-gulp-template
 
 
-2. 下载依赖插件，执行gulp命令
+2	下载依赖插件，执行gulp命令
 ---
 	
 	cd 对应目录
 	npm install
 	gulp
 
-3. 生成线上版本
+3	生成线上版本
 ---
 	
 	gulp online
 
-4. 删除线上版本
+4	删除线上版本
 ---
 
 	gulp clean

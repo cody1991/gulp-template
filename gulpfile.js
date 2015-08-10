@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     lessPluginAutoPrefix = require('less-plugin-autoprefix'),
     connect = require('gulp-connect'),
     clean = require('gulp-clean'),
+    runSequence = require('run-sequence').use(gulp),
     autoprefix = new lessPluginAutoPrefix({
         browsers: [
             "ie >= 8",
@@ -31,7 +32,7 @@ var gulp = require('gulp'),
 var custom_less = ['./src/less/style.less'],
     lib_css = ['./src/lib/normalize.css'];
 
-gulp.task('minCss', ['less'], function() {
+gulp.task('minCss', function() {
     gulp.src(lib_css)
         .pipe(gulp.dest('./dist/css'));
 });
@@ -45,7 +46,7 @@ gulp.task('less', function() {
         .pipe(gulp.dest('./dist/css/'));
 });
 
-gulp.task('publishCss', ['minCss'], function() {
+gulp.task('publishCss', function() {
     var css_task_list = ['./dist/css/*'];
     gulp.src(css_task_list)
         .pipe(concat('all.css'))
@@ -58,7 +59,7 @@ gulp.task('publishCss', ['minCss'], function() {
 /* 
  * custom_javascript是个人写的，需要进行jshint的验证
  * lib_javascript是外部引入的稳定的类库
- * lib_javascript是外部引入的稳定的类库
+ * js_task_list是用来生成all-num.js的多个js文件
  *
  * 运行concatScript命令来合并js文件
  * 并且使用rename和uglify来重命名和压缩文件 
@@ -67,12 +68,13 @@ gulp.task('publishCss', ['minCss'], function() {
  */
 var custom_javascript = ['./src/js/common-1.js', './src/js/common-2.js'],
     lib_javascript = ['./src/lib/zepto.min.js', './src/lib/jquery-2.1.4.min.js'],
+    js_task_list_baseUrl = './dist/js/',
     js_task_list = [
-        ['./dist/js/jquery-2.1.4.min.js', './dist/js/common-1.js'],
-        ['./dist/js/zepto.min.js', './dist/js/common-2.js']
+        [js_task_list_baseUrl + 'jquery-2.1.4.min.js', js_task_list_baseUrl + 'common-1.js'],
+        [js_task_list_baseUrl + 'zepto.min.js', js_task_list_baseUrl + 'common-2.js']
     ];
 
-gulp.task('concatScript', ['jshint'], function() {
+gulp.task('concatScript', function() {
     gulp.src(custom_javascript)
         .pipe(gulp.dest('./dist/js'));
     gulp.src(lib_javascript)
@@ -83,7 +85,7 @@ gulp.task('concatScript', ['jshint'], function() {
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('publishScript', ['concatScript'], function() {
+gulp.task('publishScript', function() {
     for (var i = 0; i < js_task_list.length; i++) {
         var cur_task = js_task_list[i],
             cur_file = 'all-' + i + '.js',
@@ -107,10 +109,19 @@ gulp.task('jshint', function() {
 /* 
  * 发布版本的任务，使用命令gulp online
  */
+
+/* 
+ * images_list是图片文件列表
+ * example:
+ * var images_list = [
+ *     ['/'],
+ *     ['mianma/']
+ * ];
+ */
 var images_list = [
-        ['/'],
-        ['mianma/']
-    ];
+    ['/'],
+    ['mianma/']
+];
 
 gulp.task('online', function() {
     for (var i = 0; i < images_list.length; i++) {
@@ -159,7 +170,7 @@ gulp.task('clean', function() {
  * 开启本地服务器，livereload设置为true可以保存的时候进行更新
  */
 gulp.task('reload', function() {
-    gulp.src('./*')
+    gulp.src('./index.html')
         .pipe(connect.reload());
 });
 
@@ -180,12 +191,12 @@ gulp.task('default', function() {
 
     // 监控js文件，有变化的时候运行jshint concatScript reload命令
     gulp.watch('./src/js/*', function() {
-        gulp.run('jshint', 'concatScript', 'publishScript', 'reload');
+        runSequence('jshint', 'concatScript', 'publishScript', 'reload');
     });
 
     // 监控less文件，有变化的时候运行less minCss reload命令
     gulp.watch('./src/less/*', function() {
-        gulp.run('less', 'minCss', 'publishCss', 'reload');
+        runSequence('less', 'minCss', 'publishCss', 'reload');
     });
 
     // 监控index和images文件，在变化的时候运行reload
