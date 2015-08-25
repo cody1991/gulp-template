@@ -8,33 +8,16 @@
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta content="telephone=no" name="format-detection" />
-    <script type="text/javascript" src="config.min.js"></script>
-    <script type="text/javascript">
-    (function() {
-        // GulpTemplate是用来生成带有时间戳的css或js文件所用
-        // GulpTemplate.addAllCss方法可以用于载入all.css或all.min.css;
-        // GulpTemplate.isProduction用于判定是否生成线上文件
-        GulpTemplate.isProduction = true;
-        GulpTemplate.addAllCss('./publish/css/all');
-    })();
-    </script>
+    <link rel="stylesheet" type="text/css" href="./publish/css/all.min.css">
 </head>
 
 <body>
     <div class="container">
         <div class="demo"></div>
     </div>
-    <script type="text/javascript">
-    //javascript_list是载入的js文件列表
-    //GulpTemplate.addJavascript载入js文件
-    //和上面的css文件一样不需要添加后缀
-    (function() {
-        var javascript_list = ['./publish/js/all-0', './publish/js/all-1'];
-        for (var i = 0; i < javascript_list.length; i++) {
-            GulpTemplate.addJavascript(javascript_list[i]);
-        }
-    })();
-    </script>
+    <!-- <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script> -->
+    <!-- <script type="text/javascript" src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script> -->
+    <script type="text/javascript" src="./publish/js/all-1.min.js"></script>
 </body>
 
 </html>
