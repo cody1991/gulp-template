@@ -1,8 +1,13 @@
+项目截图
+===
+
+<img src = "https://github.com/web-yuzd/gulp-template/blob/gh-pages/screen.png"/>
+
 项目介绍
 ====
 
 
-最近兴起的 [Gulp:新一代前端构建利器](http://gulpjs.com/) ( [gulp中文网 ](http://www.gulpjs.com.cn/))，可以很好地用自动化构造工具增强我们的前端开发流程。
+[Gulp:前端构建利器](http://gulpjs.com/) ( [gulp中文网](http://www.gulpjs.com.cn/))，可以很好地用自动化构造工具增强我们的前端开发流程。
 
 这个项目是自己写的一套 [gulp模板](https://github.com/cody1991/gulp-template)。
 
@@ -70,7 +75,7 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 
 	{
 	  "name": "cody-gulp-template",
-	  "version": "1.0.0",
+	  "version": "1.0.1",
 	  "description": "a gulp template package",
 	  "author": "sysutangzxcody",
 	  "keywords": [

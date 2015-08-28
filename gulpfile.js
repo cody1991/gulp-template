@@ -29,16 +29,19 @@ console.log('  * ━━━━━━━━━━感觉萌萌哒━━━━━━
  * config是基础的配置对象
  */
 var config = {
-    lessList: ['style.less'],
     // 由用户配置，可输入多个less文件名
-    cssLibList: ['normalize.css'],
+    lessList: ['style.less'],
     // 由用户配置，可输入多个外来引入的css文件名，一般项目只引入normalize.css文件
-    scriptList: ['common-1.js', 'common-2.js'],
+    cssLibList: ['normalize.css'],
     // 由用户配置，这是用户自己编写的js文件，需要通过jshint验证js规范
+    scriptList: ['common-1.js', 'common-2.js'],
+    // 由用户配置，代表js文件的各种依赖关系
     jsTaskList: [
         ['common-1.js', 'common-2.js'],
     ],
-    // 由用户配置，代表js文件的各种依赖关系
+    // 由用户配置，代表根目录下的js文件，压缩以后扔放在根目录，不需要添加js后缀
+    rootJsList: ['config'],
+
 
     // 由程序生成包含所有位于config.cssPath路径下的css文件
     allCssList: [],
@@ -49,8 +52,18 @@ var config = {
     jsPath: './src/js/', // 代表所有js文件的基目录
     publishJsPath: './publish/js/', // 代表发布的js的目录
     imgPath: './publish/images/', //  代表发布的图片的目录
-    online: './publish/online'
+    online: './publish/online',
+
+    // 0 代表不执行publishScript任务
+    // 1 代表执行config.jsPath下面的publishScript任务
+    // 2 代表执行config.rootJsList下面的publishScript任务
+    publishScriptIndex: 0
 };
+
+var watchRootJsList = [];
+for (var i = 0; i < config.rootJsList.length; i++) {
+    watchRootJsList.push(config.rootJsList[i] + '.js');
+}
 
 // 处理css文件相关的数组
 for (var i = 0; i < config.cssLibList.length; i++) {
@@ -103,12 +116,18 @@ gulp.task('default', function() {
     // 运行connect，可在localhost:8080 访问
     gulp.run('connect');
 
-    // 监控js文件，有变化的时候运行jshint concatScript reload命令
+    // 监控js文件，有变化的时候运行jshint  reload命令
     gulp.watch(config.jsPath + '*', function() {
+        config.publishScriptIndex = 1;
         runSequence('jshint', 'publishScript', 'reload');
     });
 
-    // 监控less文件，有变化的时候运行less minCss reload命令
+    gulp.watch(watchRootJsList, function() {
+        config.publishScriptIndex = 2;
+        runSequence('jshint', 'publishScript', 'reload');
+    })
+
+    // 监控less文件，有变化的时候运行less  reload命令
     gulp.watch(config.lessPath + '*', function() {
         runSequence('less', 'publishCss', 'reload');
     });
@@ -146,19 +165,37 @@ gulp.task('jshint', function() {
     gulp.src(config.scriptList)
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
+
+    gulp.src(config.rootJsList)
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
 });
 
 gulp.task('publishScript', function() {
-    for (var i = 0; i < config.jsTaskList.length; i++) {
-        var cur_task = config.jsTaskList[i],
-            cur_file = 'all-' + (i + 1) + '.js',
-            cur_file_min = 'all-' + (i + 1) + '.min.js';
-        gulp.src(cur_task)
-            .pipe(concat(cur_file))
-            .pipe(gulp.dest(config.publishJsPath))
-            .pipe(rename(cur_file_min))
-            .pipe(uglify())
-            .pipe(gulp.dest(config.publishJsPath));
+    if (config.publishScriptIndex === 0) {
+        return;
+    } else if (config.publishScriptIndex === 1) {
+        console.log('watching js task javascript list');
+        for (var i = 0; i < config.jsTaskList.length; i++) {
+            var cur_task = config.jsTaskList[i],
+                cur_file = 'all-' + (i + 1) + '.js',
+                cur_file_min = 'all-' + (i + 1) + '.min.js';
+            gulp.src(cur_task)
+                .pipe(concat(cur_file))
+                .pipe(gulp.dest(config.publishJsPath))
+                .pipe(rename(cur_file_min))
+                .pipe(uglify())
+                .pipe(gulp.dest(config.publishJsPath));
+        }
+    } else if (config.publishScriptIndex === 2) {
+        console.log('watching root javascript list');
+        for (var i = 0; i < config.rootJsList.length; i++) {
+            var cur_task = config.rootJsList[i];
+            gulp.src(cur_task + '.js')
+                .pipe(rename(cur_task + '.min.js'))
+                .pipe(uglify())
+                .pipe(gulp.dest('./'));
+        }
     }
 });
 
