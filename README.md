@@ -7,7 +7,11 @@
 ====
 
 
+<<<<<<< HEAD
 [Gulp:前端构建利器](http://gulpjs.com/) ( [gulp中文网](http://www.gulpjs.com.cn/))，可以很好地用自动化构造工具增强我们的前端开发流程。
+=======
+[Gulp:新一代前端构建利器](http://gulpjs.com/) ( [gulp中文网 ](http://www.gulpjs.com.cn/))，可以很好地用自动化构造工具增强我们的前端开发流程。
+>>>>>>> 43093d2fb556613a76b0206d1945acfd1ae4c7cd
 
 这个项目是自己写的一套 [gulp模板](https://github.com/cody1991/gulp-template)。
 
