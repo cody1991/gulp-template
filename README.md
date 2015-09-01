@@ -74,7 +74,7 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 
 	{
 	  "name": "cody-gulp-template",
-	  "version": "1.0.1",
+	  "version": "1.1.0",
 	  "description": "a gulp template package",
 	  "author": "sysutangzxcody",
 	  "keywords": [
@@ -130,6 +130,49 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 
 可以 [点击这里](https://raw.githubusercontent.com/cody1991/gulp-template/gh-pages/gulpfile.js) 查看对应的gulp配置文件。平时我们使用命令行工具来到项目文件夹，执行
 
+6	./gulp-template-config.json
+---
+
+配置项目需求文件列表，具体配置可以看下面。
+
+
+项目配置
+===
+
+在[gulpfile.js](https://raw.githubusercontent.com/cody1991/gulp-template/gh-pages/gulpfile.js)里面我们修改
+
+	var config = {
+	    // 由用户配置，可输入多个less文件名
+	    lessList: [],
+	    // 由用户配置，可输入多个外来引入的css文件名，一般项目只引入normalize.css文件
+	    cssLibList: [],
+	    // 由用户配置，这是用户自己编写的js文件，需要通过jshint验证js规范
+	    scriptList: [],
+	    // 由用户配置，代表js文件的各种依赖关系
+	    jsTaskList: [],
+	    // 由用户配置，代表根目录下的js文件，压缩以后扔放在根目录，不需要添加js后缀
+	    rootJsList: [],
+
+	    // 由程序生成包含所有位于config.cssPath路径下的css文件
+	    allCssList: [],
+	    // 下面是路径的设置
+	    lessPath: './src/less/', // 代表less文件的基目录
+	    cssPath: './src/css/', // 代表所有css文件的基目录
+	    publishCssPath: './publish/css/', //代表发布的css的目录
+	    jsPath: './src/js/', // 代表所有js文件的基目录
+	    publishJsPath: './publish/js/', // 代表发布的js的目录
+	    imgPath: './publish/images/', //  代表发布的图片的目录
+	    online: './publish/online',
+
+	    // 0 代表不执行publishScript任务
+	    // 1 代表执行config.jsPath下面的publishScript任务
+	    // 2 代表执行config.rootJsList下面的publishScript任务
+	    publishScriptIndex: 0
+	};
+
+config对象的前四个属性的值来达到自由配置，对应的属性的意思可参看注释
+
+
 
 项目使用
 ===
@@ -161,34 +204,3 @@ or
 
 	gulp clean
 
-
-项目配置
-===
-
-在[gulpfile.js](https://raw.githubusercontent.com/cody1991/gulp-template/gh-pages/gulpfile.js)里面我们修改
-
-	var config = {
-	    lessList: ['style.less'],
-	    // 由用户配置，可输入多个less文件名
-	    cssLibList: ['normalize.css'],
-	    // 由用户配置，可输入多个外来引入的css文件名，一般项目只引入normalize.css文件
-	    scriptList: ['common-1.js', 'common-2.js'],
-	    // 由用户配置，这是用户自己编写的js文件，需要通过jshint验证js规范
-	    jsTaskList: [
-	        ['common-1.js', 'common-2.js'],
-	    ],
-	    // 由用户配置，代表js文件的各种依赖关系
-
-	    // 由程序生成包含所有位于config.cssPath路径下的css文件
-	    allCssList: [],
-	    // 下面是路径的设置
-	    lessPath: './src/less/', // 代表less文件的基目录
-	    cssPath: './src/css/', // 代表所有css文件的基目录
-	    publishCssPath: './publish/css/', //代表发布的css的目录
-	    jsPath: './src/js/', // 代表所有js文件的基目录
-	    publishJsPath: './publish/js/', // 代表发布的js的目录
-	    imgPath: './publish/images/', //  代表发布的图片的目录
-	    online: './publish/online'
-	};
-
-config对象的前四个属性的值来达到自由配置，对应的属性的意思可参看注释

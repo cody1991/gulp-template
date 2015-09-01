@@ -1,0 +1,9 @@
+{
+    "lessList": ["style.less"],
+    "cssLibList": ["normalize.css"],
+    "scriptList": ["common-1.js", "common-2.js"],
+    "jsTaskList": [
+        ["common-1.js", "common-2.js"]
+    ],
+    "rootJsList": ["config"]
+}
