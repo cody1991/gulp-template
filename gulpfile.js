@@ -54,7 +54,8 @@ var config = {
     // 0 代表不执行publishScript任务
     // 1 代表执行config.jsPath下面的publishScript任务
     // 2 代表执行config.rootJsList下面的publishScript任务
-    publishScriptIndex: 0
+    publishScriptIndex: 0,
+    jsTaskListIndex: -1
 };
 
 for (var p in gulpTemplateConfig) {
@@ -87,7 +88,6 @@ for (var i = 0; i < config.jsTaskList.length; i++) {
         config.jsTaskList[i][j] = config.jsPath + config.jsTaskList[i][j];
     }
 }
-
 
 /* 
  * less任务 把config.lessPath路径下的less文件编译成css文件
@@ -133,20 +133,16 @@ gulp.task('publishScript', function() {
     if (config.publishScriptIndex === 0) {
         return;
     } else if (config.publishScriptIndex === 1) {
-        console.log('watching js task javascript list');
-        for (var i = 0; i < config.jsTaskList.length; i++) {
-            var cur_task = config.jsTaskList[i],
-                cur_file = 'all-' + (i + 1) + '.js',
-                cur_file_min = 'all-' + (i + 1) + '.min.js';
-            gulp.src(cur_task)
-                .pipe(concat(cur_file))
-                .pipe(gulp.dest(config.publishJsPath))
-                .pipe(rename(cur_file_min))
-                .pipe(uglify())
-                .pipe(gulp.dest(config.publishJsPath));
-        }
+        var cur_task = config.jsTaskList[config.jsTaskListIndex],
+            cur_file = 'all-' + (config.jsTaskListIndex + 1) + '.js',
+            cur_file_min = 'all-' + (config.jsTaskListIndex + 1) + '.min.js';
+        gulp.src(cur_task)
+            .pipe(concat(cur_file))
+            .pipe(gulp.dest(config.publishJsPath))
+            .pipe(rename(cur_file_min))
+            .pipe(uglify())
+            .pipe(gulp.dest(config.publishJsPath));
     } else if (config.publishScriptIndex === 2) {
-        console.log('watching root javascript list');
         for (var i = 0; i < config.rootJsList.length; i++) {
             var cur_task = config.rootJsList[i];
             gulp.src(cur_task + '.js')
@@ -174,9 +170,6 @@ gulp.task('connect', function() {
     });
 });
 
-
-
-
 /*
  * 默认任务
  */
@@ -186,10 +179,15 @@ gulp.task('default', function() {
     gulp.run('connect');
 
     // 监控js文件，有变化的时候运行jshint  reload命令
-    gulp.watch(config.jsPath + '*', function() {
-        config.publishScriptIndex = 1;
-        runSequence('jshint', 'publishScript', 'reload');
-    });
+    for (var i = 0; i < config.jsTaskList.length; i++) {
+        (function(m) {
+            gulp.watch(config.jsTaskList[m], function() {
+                config.jsTaskListIndex = m;
+                config.publishScriptIndex = 1;
+                runSequence('jshint', 'publishScript', 'reload');
+            });
+        })(i);
+    }
 
     gulp.watch(watchRootJsList, function() {
         config.publishScriptIndex = 2;
@@ -206,4 +204,3 @@ gulp.task('default', function() {
         gulp.run('reload');
     });
 });
-

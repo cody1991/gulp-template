@@ -3,7 +3,8 @@
     "cssLibList": ["normalize.css"],
     "scriptList": ["common-1.js", "common-2.js"],
     "jsTaskList": [
-        ["common-1.js", "common-2.js"]
+        ["jquery-2.1.4.min.js","common-1.js"],
+        ["common-2.js"]
     ],
     "rootJsList": ["config"]
 }
