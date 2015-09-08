@@ -7,9 +7,7 @@ var gulp = require('gulp'),
     minifycss = require('gulp-minify-css'),
     lessPluginAutoPrefix = require('less-plugin-autoprefix'),
     connect = require('gulp-connect'),
-    clean = require('gulp-clean'),
     runSequence = require('run-sequence').use(gulp),
-    rev = require('gulp-rev'),
     autoprefix = new lessPluginAutoPrefix({
         browsers: [
             "ie >= 8",
@@ -52,7 +50,6 @@ var config = {
     jsPath: './src/js/', // 代表所有js文件的基目录
     publishJsPath: './publish/js/', // 代表发布的js的目录
     imgPath: './publish/images/', //  代表发布的图片的目录
-    online: './publish/online',
 
     // 0 代表不执行publishScript任务
     // 1 代表执行config.jsPath下面的publishScript任务
@@ -178,28 +175,7 @@ gulp.task('connect', function() {
 });
 
 
-/* 
- * 删除发布版本，使用命令gulp clean
- */
-gulp.task('clean', function() {
-    gulp.src(config.online + '*', {
-            read: false
-        })
-        .pipe(clean());
-});
 
-/* 
- * 发布版本任务，使用命令gulp online
- */
-
-gulp.task('online', function() {
-    gulp.src(config.publishCssPath + 'all.min.css')
-        .pipe(rev())
-        .pipe(gulp.dest(config.online));
-    gulp.src(config.publishJsPath + 'all-*.min.js')
-        .pipe(rev())
-        .pipe(gulp.dest(config.online));
-});
 
 /*
  * 默认任务
