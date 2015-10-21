@@ -2,7 +2,9 @@
 ===
 
 1	把本地服务器从 [gulp-connect](https://github.com/AveVlad/gulp-connect) 迁移到 [browsersync](http://www.browsersync.io/)
+
 2	优化配置文件部分代码
+
 3	尝试增加压缩PNG图片的模块以及增加和控制版本号的模块
 
 项目截图
