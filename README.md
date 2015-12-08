@@ -1,7 +1,7 @@
 通告
 ===
 
-下面罗列的最近计划夭折了，这个项目应该不会继续维护了，转向[http://webpack.github.io/](webpack module bundler)的使用。后面也许会出现cody-webpack-template的新项目。
+下面罗列的最近计划夭折了，这个项目应该不会继续维护了，转向[webpack module bundler](http://webpack.github.io/)的使用。后面也许会出现cody-webpack-template的新项目。
 
 说声抱歉，给自己也给使用过这个模板的人。
 
@@ -9,7 +9,7 @@
 
 但这个模板还有很多不完善的地方，放弃维护了有点不负责任的感觉。
 
-但是，就这样吧~~
+但是，就这样吧~~其实关注的人也不多，而人总要往前走得嘛。这里给自己一个交代好了。
 
 The End.
 
