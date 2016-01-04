@@ -1,4 +1,4 @@
-通告
+ 
 ===
 
 下面罗列的最近计划夭折了，这个项目应该不会继续维护了，转向[webpack module bundler](http://webpack.github.io/)的使用。后面也许会出现cody-webpack-template的新项目。
