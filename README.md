@@ -1,5 +1,5 @@
 项目介绍
-====
+===
 
 [Gulp:前端构建利器](http://gulpjs.com/) ( [gulp中文网](http://www.gulpjs.com.cn/))，可以很好地用自动化构造工具增强我们的前端开发流程。
 
@@ -27,8 +27,7 @@ gulp是基于node.js的，在gulpfile.js开头部分我们引入了N个模块。
 项目使用
 ===
 
-1   下载本项目
----
+1   下载
 
     git clone https://github.com/cody1991/gulp-template.git
 
@@ -37,8 +36,7 @@ or
     npm install cody-gulp-template
 
 
-2   下载依赖插件，执行gulp命令
----
+2   安装依赖插件，执行gulp命令
     
     cd 对应目录
     npm install
