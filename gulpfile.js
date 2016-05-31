@@ -3,7 +3,6 @@ var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
 
     concat = require('gulp-concat'),
-    stripDebug = require('gulp-strip-debug'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
 
@@ -13,7 +12,9 @@ var gulp = require('gulp'),
 
     browserSync = require('browser-sync'),
 
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
+
+    del = require('del');
 
 
 
@@ -24,11 +25,11 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('scripts', function() {
-    gulp.src(['./js/common.js'])
+    // 这里可以引入其他js库
+    gulp.src(['./js/common.js', './js/common-2.js'])
         .pipe(concat('all.js'))
         .pipe(gulp.dest('./dist/js/'))
         .pipe(rename('all.min.js'))
-        .pipe(stripDebug())
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js/'))
         .pipe(browserSync.reload({
@@ -37,6 +38,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('less', function() {
+    // 其余的样式文件都由style.less引入
     gulp.src(['./css/style.less'])
         .pipe(less())
         .pipe(autoprefix({
@@ -68,6 +70,14 @@ gulp.task('watch', function() {
     gulp.watch('./css/*.less', ['less']);
 
     gulp.watch('./*.html', browserSync.reload);
+});
+
+gulp.task('clean', function() {
+    del(['dist/css/', 'dist/js/']);
+});
+
+gulp.task('build', function(callback) {
+    runSequence(['less', 'scripts']);
 });
 
 gulp.task('default', function(callback) {

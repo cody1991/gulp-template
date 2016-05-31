@@ -1,35 +1,36 @@
 {
-    "name": "cody-gulp-template",
-    "version": "2.0.5",
-    "description": "a gulp template package",
-    "author": "sysutangzxcody",
-    "keywords": [
-        "gulp",
-        "template"
-    ],
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/cody1991/gulp-template.git"
-    },
-    "bugs": {
-        "url": "https://github.com/cody1991/gulp-template/issues"
-    },
-    "homepage": "https://github.com/cody1991/gulp-template",
-    "main": "index.html",
-    "devDependencies": {
-        "browser-sync": "^2.12.10",
-        "gulp": "^3.9.1",
-        "gulp-autoprefixer": "^3.1.0",
-        "gulp-clean-css": "^2.0.8",
-        "gulp-concat": "^2.6.0",
-        "gulp-jshint": "^2.0.1",
-        "gulp-less": "^3.1.0",
-        "gulp-rename": "^1.2.2",
-        "gulp-strip-debug": "^1.1.0",
-        "gulp-uglify": "^1.5.3",
-        "jquery": "^2.2.4",
-        "jshint": "^2.9.2",
-        "run-sequence": "^1.2.1"
-    }
+  "name": "cody-gulp-template",
+  "version": "2.0.5",
+  "description": "a gulp template package",
+  "author": "sysutangzxcody",
+  "keywords": [
+    "gulp",
+    "template"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cody1991/gulp-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cody1991/gulp-template/issues"
+  },
+  "homepage": "https://github.com/cody1991/gulp-template",
+  "main": "index.html",
+  "devDependencies": {
+    "browser-sync": "^2.12.10",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^2.0.8",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^2.0.1",
+    "gulp-less": "^3.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-uglify": "^1.5.3",
+    "jquery": "^2.2.4",
+    "jshint": "^2.9.2",
+    "run-sequence": "^1.2.1"
+  }
 }

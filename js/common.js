@@ -1,5 +1,3 @@
-var gulpLearn = 1;
-
-function gulpFunction() {
-    return 1 + 2;
-}
+$(function() {
+    console.log(window);
+});
