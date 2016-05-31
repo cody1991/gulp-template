@@ -26,7 +26,7 @@ gulp.task('jshint', function() {
 
 gulp.task('scripts', function() {
     // 这里可以引入其他js库
-    gulp.src(['./js/common.js', './js/common-2.js'])
+    gulp.src(['./js/common.js'])
         .pipe(concat('all.js'))
         .pipe(gulp.dest('./dist/js/'))
         .pipe(rename('all.min.js'))

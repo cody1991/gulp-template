@@ -39,3 +39,9 @@ or
     cd 对应目录
     npm install
     gulp
+
+3   运行
+
+    npm run build or gulp build  // 构建css&js文件
+    npm run clean or gulp clean  // 删除构建出来的css&js文件
+    npm run dev or gulp          // 运行本地服务器

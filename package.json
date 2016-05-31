@@ -1,8 +1,13 @@
 {
     "name": "cody-gulp-template",
-    "version": "2.0.7",
+    "version": "2.0.8",
     "description": "a gulp template package",
     "author": "sysutangzxcody",
+    "scripts": {
+        "build": "gulp build",
+        "clean": "gulp clean",
+        "dev": "gulp"
+    },
     "keywords": [
         "gulp",
         "template"
