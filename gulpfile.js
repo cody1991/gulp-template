@@ -1,9 +1,9 @@
 var gulp = require('gulp'),
 
     jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
 
     concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
 
     autoprefix = require('gulp-autoprefixer'),
