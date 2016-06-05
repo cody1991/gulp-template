@@ -24,7 +24,7 @@ gulp.task('jshint', function() {
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('scripts', function() {
+gulp.task('scripts', function(callback) {
     // 这里可以引入其他js库
     gulp.src(['./js/common.js'])
         .pipe(concat('all.js'))
@@ -35,9 +35,11 @@ gulp.task('scripts', function() {
         .pipe(browserSync.reload({
             stream: true
         }));
+
+    callback();
 });
 
-gulp.task('less', function() {
+gulp.task('less', function(callback) {
     // 其余的样式文件都由style.less引入
     gulp.src(['./css/style.less'])
         .pipe(less())
@@ -52,6 +54,8 @@ gulp.task('less', function() {
         .pipe(browserSync.reload({
             stream: true
         }));
+
+    callback();
 });
 
 gulp.task('browserSync', function() {
@@ -72,11 +76,12 @@ gulp.task('watch', function() {
     gulp.watch('./*.html', browserSync.reload);
 });
 
-gulp.task('clean', function() {
+gulp.task('clean', function(callback) {
     del(['dist/css/', 'dist/js/']);
+    callback();
 });
 
-gulp.task('build', function(callback) {
+gulp.task('build', ['clean'], function(callback) {
     runSequence(['less', 'scripts']);
 });
 
